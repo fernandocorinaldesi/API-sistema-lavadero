@@ -11,10 +11,6 @@ const ordenTrabajo = sequelize.define('orden_trabajo', {
         allowNull: false,
         primaryKey: true
     },
-    servicio_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
     cliente_id: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -35,7 +31,24 @@ const ordenTrabajo = sequelize.define('orden_trabajo', {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-
+    createdAt: {
+        type: Sequelize.DATE,
+        get() {
+            return Moment(this.getDataValue('createdAt')).format('LLLL')
+        }
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
+        get() {
+            return Moment(this.getDataValue('updatedAt')).format('LLLL')
+        }
+    },
+    deletedAt: {
+        type: Sequelize.DATE,
+        get() {
+            return Moment(this.getDataValue('deletedAt')).format('LLLL')
+        }
+    },
 })
 
 module.exports = ordenTrabajo

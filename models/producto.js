@@ -28,6 +28,24 @@ const Producto = sequelize.define('producto', {
     type: Sequelize.STRING,
     allowNull: true
   },
+  createdAt: {
+    type: Sequelize.DATE,
+    get() {
+      return Moment(this.getDataValue('createdAt')).format('LLLL')
+    }
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    get() {
+      return Moment(this.getDataValue('updatedAt')).format('LLLL')
+    }
+  },
+  deletedAt: {
+    type: Sequelize.DATE,
+    get() {
+      return Moment(this.getDataValue('deletedAt')).format('LLLL')
+    }
+  },
 
 })
 

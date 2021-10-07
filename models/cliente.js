@@ -20,13 +20,39 @@ const Cliente = sequelize.define('cliente', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  dni: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   direccion: {
     type: Sequelize.STRING,
     allowNull: false
   },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   telefono: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
+  },
+  createdAt: {
+    type: Sequelize.DATE,
+    get() {
+      return Moment(this.getDataValue('createdAt')).format('LLLL')
+    }
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    get() {
+      return Moment(this.getDataValue('updatedAt')).format('LLLL')
+    }
+  },
+  deletedAt: {
+    type: Sequelize.DATE,
+    get() {
+      return Moment(this.getDataValue('deletedAt')).format('LLLL')
+    }
   },
 })
 
