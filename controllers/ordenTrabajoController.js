@@ -1,5 +1,6 @@
 const ordenTrabajoServices = require("../services/ordenesTrabajoServices")
 const validationServices = require("../services/validationServices")
+const sequelize = require('../database/sequelizeConnection')
 
 exports.getAll = async (req, res, next) => {
 
@@ -14,21 +15,29 @@ exports.getAll = async (req, res, next) => {
       total: resultado.length
     })
 
+
   } catch (error) {
-    next(error)
+    console.log(error)
+    const mensaje = new Error('Error.')
+    return next(mensaje)
   }
 
 }
 exports.addOrder = async (req, res, next) => {
-  
+  const t = await sequelize.transaction();
+  console.log(req.body)
   try {
-    resultado = await ordenTrabajoServices.addOrder(req.body)
+    resultado = await ordenTrabajoServices.addOrder(req.body, t)
     res.status(201).json({
       mensaje: "Orden de trabajo creada.",
       publicacion: resultado,
     });
+    await t.commit();
   } catch (error) {
-    next(error)
+    await t.rollback();
+    console.log(error)
+    const mensaje = new Error('Error.')
+    return next(mensaje)
   }
 };
 
