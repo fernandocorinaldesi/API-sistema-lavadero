@@ -22,6 +22,8 @@ require('./utils/passport')
 const token  = require('./routes/core/token')
 const usuarios = require('./routes/core/usuarios')
 const ordenTrabajoRutas = require('./routes/ordenTrabajo')
+const servicioRutas = require('./routes/servicio')
+const clientes = require('./routes/clientes')
 
 
 
@@ -63,6 +65,8 @@ app.use('/usuarios',usuarios)
 
 // ###### ENDPOINTS APP
 app.use('/orden', ordenTrabajoRutas)
+app.use('/clientes', clientes)
+app.use('/servicios', servicioRutas)
 
 
 // #####Swagger
@@ -106,6 +110,9 @@ sequelize.sync({
 .then(resultado => { console.log("\u001b[1;34m  [sequelize sync core]" + JSON.stringify(resultado.models)) })
 .catch(error => { throw new Error(error) })
 
+
+const cliente = require("./models/cliente");
+const cliente2 = require("./models/servicio");
 /*db.sync({ 
     schema: 'gestion', searchPath: 'gestion'
     //, alter: true
