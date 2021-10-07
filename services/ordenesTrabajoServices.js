@@ -1,5 +1,7 @@
 const OrdenTrabajo = require("../models/ordenTrabajo");
-//const validationServices = require("./validationServices")
+const clienteServices = require("./clienteServices")
+const ordenTrabajoServicioServices = require("./ordenTrabajoServicioServices")
+const sequelize = require('../database/sequelizeConnection')
 
 /*exports.getAll = async (paginaActual, porPagina) => {
   
@@ -23,35 +25,26 @@ const OrdenTrabajo = require("../models/ordenTrabajo");
 }*/
 
 exports.getAllOrders = async () => {
-
-
   resultado = await OrdenTrabajo.findAll()
+  return resultado
+}
+exports.addOrder = async (body, t) => {
 
+  cliente = await clienteServices.getClientByDni(body.clienteDni.dni)
+
+  resOrden = await OrdenTrabajo.create({
+    cliente_id: cliente.id,
+    fecha_entrega: body.fecha_entrega,
+    tipo_entrega: body.forma_entrega,
+    tipo_pago: body.tipo_pago,
+    precio: body.precio
+  }, { transaction: t })
+
+  resOrdenServicio = await ordenTrabajoServicioServices.add(body.servicios, resOrden.id, t)
+  console.log(resOrdenServicio )
 
   return resultado
 }
-exports.addOrder = async (body) => {
-
-
-  const fechaEntrega = body.fechaEntrega
-  const tipoEntrega = body.tipoEntrega
-  const tipoPago = body.tipoPago
-  const precio = body.precio
-  const cliente = body.cliente
-  const servicio = body.servicio
-
-  resultado = await OrdenTrabajo.create({
-    cliente_id:cliente,
-    servicio_id:servicio,
-    fecha_entrega: fechaEntrega,
-    tipo_entrega: tipoEntrega,
-    tipo_pago: tipoPago,
-    precio: precio
-  })
-
-  return resultado
-}
-
 
 /*exports.findPubById = async (id) => {
   const elemento = await Publicacion.findById(id);
