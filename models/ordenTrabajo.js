@@ -15,6 +15,10 @@ const ordenTrabajo = sequelize.define('orden_trabajo', {
         type: Sequelize.INTEGER,
         allowNull: false
     },
+    estado: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
     fecha_entrega: {
         type: Sequelize.STRING,
         allowNull: false
@@ -30,6 +34,14 @@ const ordenTrabajo = sequelize.define('orden_trabajo', {
     precio: {
         type: Sequelize.INTEGER,
         allowNull: false
+    },
+    monto: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
+    descripcion_almacenado: {
+        type: Sequelize.TEXT,
+        allowNull: true
     },
     createdAt: {
         type: Sequelize.DATE,

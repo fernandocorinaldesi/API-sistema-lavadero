@@ -3,9 +3,7 @@ const validationServices = require("../services/validationServices")
 const sequelize = require('../database/sequelizeConnection')
 
 exports.getAll = async (req, res, next) => {
-
   //const paginaActual = req.query.page || 1
-
   try {
     const resultado = await ordenTrabajoServices.getAllOrders()
 
@@ -15,7 +13,6 @@ exports.getAll = async (req, res, next) => {
       total: resultado.length
     })
 
-
   } catch (error) {
     console.log(error)
     const mensaje = new Error('Error.')
@@ -23,14 +20,14 @@ exports.getAll = async (req, res, next) => {
   }
 
 }
-exports.addOrder = async (req, res, next) => {
+exports.addOrden = async (req, res, next) => {
   const t = await sequelize.transaction();
   console.log(req.body)
   try {
     resultado = await ordenTrabajoServices.addOrder(req.body, t)
     res.status(201).json({
       mensaje: "Orden de trabajo creada.",
-      publicacion: resultado,
+      orden: resultado,
     });
     await t.commit();
   } catch (error) {
@@ -40,11 +37,29 @@ exports.addOrder = async (req, res, next) => {
     return next(mensaje)
   }
 };
+exports.updateOrden = async (req, res, next) => {
+  const id = req.params.id
+  console.log("ORDEN DE TRABAJO "+req.body)
+  try {
+     const orden = await ordenTrabajoServices.findOrdenById(id);
+     const resultado = await ordenTrabajoServices.updateOrden(orden,req.body)
 
-/*exports.findById = async (req, res, next) => {
+     res.status(200).json({
+      mensaje: "Orden de trabajo actualizada.",
+      orden: resultado,
+    });
+
+  } catch (error) {
+     console.log(error)
+    const mensaje = new Error('Error.')
+    return next(mensaje)
+  }
+};
+
+exports.findById = async (req, res, next) => {
   const id = req.params.id
   try {
-   const resultado = await publicacionesServices.findPubById(id);
+   const resultado = await ordenTrabajoServices.findOrdenById(id);
    res.status(200).json({
       mensaje: 'Elemento encontrado',
       elemento: resultado
@@ -53,7 +68,24 @@ exports.addOrder = async (req, res, next) => {
     next(error);
   }
 };
+exports.delete = async (req, res, next) => {
+  const id = req.params.id
+  console.log("ES EL ID"+id)
 
+  try {
+    const resultado = await ordenTrabajoServices.findOrdenById(id);
+    console.log("RESULTADO "+resultado)
+    
+    const resultadoDeleted = await ordenTrabajoServices.delete(resultado)
+      res.status(200).json({
+          mensaje: 'Orden de trabajo eliminada.',
+          resultado: resultadoDeleted
+      })
+  } catch (error) {
+  next(error)
+  }
+}
+/*
 exports.addPublicacion = async (req, res, next) => {
   let usuario
   try {

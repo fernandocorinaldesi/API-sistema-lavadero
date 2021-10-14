@@ -14,3 +14,8 @@ exports.getAllClients = async () => {
     resultado = await Cliente.findOne({ where: { dni:dni  } })
     return resultado
   }
+
+  exports.add = async (body)  =>{
+    
+    return resultado
+  }

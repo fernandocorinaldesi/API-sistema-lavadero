@@ -22,16 +22,17 @@ router.post('/',
    // multer.upload,
    // validator.pubValidationRules(),
     //validator.pubValidate,
-    ordenTrabajoController.addOrder
+    ordenTrabajoController.addOrden
 )
 
 router.delete('/:id',
    // tokenAuth,
-    //publicacionesController.eliminar
+   ordenTrabajoController.delete
 )
 
 router.put(
     '/:id',
+    ordenTrabajoController.updateOrden
   //  tokenAuth,
  //   multer.upload,
  //   validator.pubValidationRules(),
