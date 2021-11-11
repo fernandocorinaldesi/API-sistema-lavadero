@@ -3,8 +3,6 @@ const validationServices = require("../services/validationServices")
 
 exports.getAll = async (req, res, next) => {
 
-  //const paginaActual = req.query.page || 1
-
   try {
     const resultado = await servicioServices.getAllServices()
 
@@ -20,4 +18,52 @@ exports.getAll = async (req, res, next) => {
     return next(mensaje)
   }
 
+}
+exports.addService = async (req, res, next) => {
+  try {
+    const resultado = await servicioServices.add(req.body)
+
+    res.status(201).json({
+      mensaje: "El servicio fue creado correctamente",
+      elementos: resultado
+    })
+
+  } catch (error) {
+    next(error)
+  }
+
+}
+
+exports.editService = async (req, res, next) => {
+  const id = req.params.id
+
+  try {
+
+    const servicio = await servicioServices.getServiceById(id)
+    const resultado = await servicioServices.edit(req.body,servicio.id)
+    res.status(200).json({
+      mensaje: "El servicio fue editado correctamente",
+      elementos: resultado,
+    })
+
+  } catch (error) {
+    next(error)
+  }
+
+}
+
+exports.delete = async (req, res, next) => {
+  const id = req.params.id
+
+  try {
+    const resultado = await servicioServices.getServiceById(id);
+    
+    const resultadoDeleted = await servicioServices.delete(resultado)
+      res.status(200).json({
+          mensaje: 'Servicio eliminada.',
+          resultado: resultadoDeleted
+      })
+  } catch (error) {
+  next(error)
+  }
 }
