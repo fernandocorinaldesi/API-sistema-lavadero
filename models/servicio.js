@@ -4,7 +4,6 @@ Moment.locale('es')
 
 const sequelize = require('../database/sequelizeConnection')
 
-
 const Servicio = sequelize.define('servicio', {
     id: {
         type: Sequelize.INTEGER,
@@ -26,10 +25,6 @@ const Servicio = sequelize.define('servicio', {
     },
     precio_proveedor: {
         type: Sequelize.INTEGER,
-        allowNull: true
-    },
-    registro: {
-        type: Sequelize.BOOLEAN,
         allowNull: true
     },
     createdAt: {
