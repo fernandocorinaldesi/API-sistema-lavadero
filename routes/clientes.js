@@ -17,12 +17,12 @@ router.get('/:id',
     //publicacionesController.findById
 )
 
-/*router.post('/',
+router.post('/',
     //tokenAuth,
    // multer.upload,
    // validator.pubValidationRules(),
     //validator.pubValidate,
-    clienteController.addOrder
+    clienteController.addClient
 )
 
 router.delete('/:id',
@@ -32,10 +32,11 @@ router.delete('/:id',
 
 router.put(
     '/:id',
+    clienteController.editClient
   //  tokenAuth,
  //   multer.upload,
  //   validator.pubValidationRules(),
    // validator.pubValidate,publicacionesController.editar
-)*/
+)
 
 module.exports = router
