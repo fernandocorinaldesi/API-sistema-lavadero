@@ -12,17 +12,17 @@ const Producto = sequelize.define('producto', {
     allowNull: false,
     primaryKey: true
   },
-  precio: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  cantidad: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
   nombre: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  proveedor: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  marca: {
+    type: Sequelize.STRING,
+    allowNull: true
   },
   descripcion: {
     type: Sequelize.STRING,
