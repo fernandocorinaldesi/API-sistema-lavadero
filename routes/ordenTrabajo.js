@@ -11,12 +11,25 @@ router.get('/',
     // tokenAuth,
     ordenTrabajoController.getAll
 )
+router.get('/calendar',
+    // tokenAuth,
+    ordenTrabajoController.getCalendarData
+)
+
 
 router.get('/:id',
     // tokenAuth,
     //publicacionesController.findById
 )
-
+router.get('/delivery/:desde/:hasta',
+    // tokenAuth,
+    ordenTrabajoController.getDelivery
+)
+router.get('/detalles/:id',
+    // tokenAuth,
+    ordenTrabajoController.getDetalles
+    //publicacionesController.findById
+)
 router.post('/',
     //tokenAuth,
    // multer.upload,
