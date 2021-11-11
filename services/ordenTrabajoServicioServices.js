@@ -14,3 +14,10 @@ exports.add = async (servicios,ordenId,t) => {
     }))
     return res
   }
+
+  exports.getAllServicesOrden = async (orden) => {
+
+    resultado = await OrdenTrabajoServicio.findAll({ where: { orden_id:orden.id  } })
+  
+    return resultado
+  }

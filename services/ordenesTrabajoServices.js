@@ -1,30 +1,31 @@
 const OrdenTrabajo = require("../models/ordenTrabajo");
 const clienteServices = require("./clienteServices")
+const servicioServices = require("./servicioServices")
 const ordenTrabajoServicioServices = require("./ordenTrabajoServicioServices")
 const sequelize = require('../database/sequelizeConnection')
 const { QueryTypes } = require('sequelize');
-const ordenTrabajoServicio = require("../models/ordenTrabajoServicio");
 
-/*exports.getAll = async (paginaActual, porPagina) => {
+exports.getOrdenDetalles = async (orden) => {
+  const resultado = await ordenTrabajoServicioServices.getAllServicesOrden(orden)
   
-  porPagina = porPagina || 100
+   const ordenservicios = await Promise.all(resultado.map(async e => {
+    serv = await servicioServices.getServiceById(e.servicio_id)
+    return {id:e.id,nombre:serv.nombre,tipo:serv.tipo,cantidad:e.cantidad,precio:e.precio}
+    
+  }))
 
-  const resultado = {
-    elementos: [],
-    elementosEnTotal: 0,
-  }
 
-  resultado.elementos = await Publicacion.find()
-    .countDocuments()
-    .then((cantidad) => {
-      resultado.elementosEnTotal = cantidad
-      return Publicacion.find()
-        .skip((paginaActual - 1) * porPagina)
-        .limit(porPagina)
-    })
+  return ordenservicios 
+}
 
+exports.getOrdenDesdeHasta = async (desde,hasta) => {
+  const ordenes = await this.getAllOrders()
+  const resultado = ordenes.filter(e => {
+    return e.fecha_entrega >= desde && e.fecha_entrega <= hasta && e.estado!=="entregada"
+    && e.tipo_entrega==="Entrega a domicilio"
+  })
   return resultado
-}*/
+}
 
 exports.getAllOrders = async () => {
   resultado = await sequelize.query(`SELECT * from public.f_orden_cliente()`, { type: QueryTypes.SELECT });
@@ -33,12 +34,16 @@ exports.getAllOrders = async () => {
 exports.addOrder = async (body, t) => {
   let monto
   cliente = await clienteServices.getClientByDni(body.clienteDni.dni)
-  if (body.senaMonto === null) {
-    monto = 0
+  if(body.tipo_pago === 'En entrega'){
+    monto = body.precio
   }
-  else {
+  else if (body.senaMonto !== null) {
     monto = body.precio - body.senaMonto
   }
+  else {
+    monto = 0
+  }
+ 
   resOrden = await OrdenTrabajo.create({
     cliente_id: cliente.id,
     estado: body.estado,
@@ -55,13 +60,13 @@ exports.addOrder = async (body, t) => {
   return resultado
 }
 exports.updateOrden = async (orden, body) => {
-   
+   console.log(body.descripcion)
   const resultado = await OrdenTrabajo.update({
     estado: body.estado,
-    descripcion_almacenado:body.descripcion_almacenado,
-    fecha_entrega:body.fecha_entrega
+    tipo_entrega: body.tipo_entrega,
+    descripcion_almacenado:body.descripcion || "",
+    fecha_entrega:body.fecha_entrega || orden.fecha_entrega
   }, { where: { id: orden.id } })
- console.log(resultado)
   return resultado
 }
 exports.findOrdenById = async (id) => {
@@ -70,35 +75,10 @@ exports.findOrdenById = async (id) => {
 };
 exports.delete = async (orden) => {
  const res = await orden.destroy()
- console.log("RES "+res)
  return res
 };
-/*
-exports.addPub = async (req, usuario) => {
-  const imagen = req.file.path
-  const titulo = req.body.titulo
-  const contenido = req.body.contenido
-  const usuarioId = usuario
 
-  const publicacion = new Publicacion({
-    titulo: titulo,
-    contenido: contenido,
-    imagen: imagen,
-    usuario: usuarioId,
-  })
 
-  return await publicacion.save()
-}
-
-exports.delPub = async (pub) => {
-    this.deleteImage(pub.imagen)
-    return await pub.remove();
-};
-
-exports.saveEdit = async (req, pub, image) => {
-  (pub.titulo = req.body.titulo), (pub.imagen = image), (pub.contenido = req.body.contenido);
-  return await pub.save();
-};*/
 
 
 
