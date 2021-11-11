@@ -1,10 +1,12 @@
 const ordenTrabajoServices = require("../services/ordenesTrabajoServices")
 const sequelize = require('../database/sequelizeConnection')
 const calendarServices = require("../services/calendarServices")
+const commonServices = require("../services/commonServices")
 
 exports.getAll = async (req, res, next) => {
   try {
     const resultado = await ordenTrabajoServices.getAllOrders()
+    resultado.sort(function(a,b){return new Date( commonServices.convertDbDateTimeToNormaldate(b.fecha_ingreso)) - new Date(commonServices.convertDbDateTimeToNormaldate(a.fecha_ingreso));});
 
     res.status(200).json({
       mensaje: "Elementos encontrados",
