@@ -28,6 +28,14 @@ const Cliente = sequelize.define('cliente', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  localidad: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  provincia: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   email: {
     type: Sequelize.STRING,
     allowNull: true
