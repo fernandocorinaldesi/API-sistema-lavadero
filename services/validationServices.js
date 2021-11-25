@@ -1,10 +1,4 @@
 const Usuario = require("../models/core/usuario");
-//const publicacionesServices = require("./ordenesTrabajoServices") 
-//const client = require('../database/redisConnection')
-//const { promisify } = require('util')
-//const hgetall = promisify(client.HGETALL).bind(client)
-
-//const { eliminarImagen } = require("../utils/multer/files");
 
 exports.validImageFile = (req) => {
   if (!req.file) {
@@ -48,13 +42,6 @@ exports.isUsuarioEqualsUser = (usuario, userName) => {
   }
 };
 
-/*exports.isImageEqualsPubImage = (image, pubImage) => {
-  if (image !== pubImage) {
-    //eliminarImagen(publicacion.imagen);
-    publicacionesServices.deleteImage(pubImage)
-  }
-};
-*/
 exports.tokenAuthHeader = (authHeader) => {
   if (!authHeader) {
     const error = new Error('The user is not authenticated.')
@@ -71,13 +58,5 @@ exports.validDecodedtoken = (decodedToken) => {
  }
 };
 
-/*exports.isRefreshtokenInRedis = async (refreshToken) => {
-  const res = await hgetall(refreshToken)
-  if(res===null){
-    const error = new Error('Token no encontrado en redis.')
-    error.statusCode = 401
-    throw error
-  }
-}*/
  
 

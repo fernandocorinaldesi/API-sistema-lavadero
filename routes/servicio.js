@@ -16,24 +16,26 @@ router.get('/:id',
 )
 
 router.post('/',
+    servicioController.addService
     //tokenAuth,
-   // multer.upload,
-   // validator.pubValidationRules(),
+    // multer.upload,
+    // validator.pubValidationRules(),
     //validator.pubValidate,
     //ordenTrabajoController.addOrder
 )
 
 router.delete('/:id',
-   // tokenAuth,
+    servicioController.delete
     //publicacionesController.eliminar
 )
 
 router.put(
     '/:id',
-  //  tokenAuth,
- //   multer.upload,
- //   validator.pubValidationRules(),
-   // validator.pubValidate,publicacionesController.editar
+    servicioController.editService
+    //  tokenAuth,
+    //   multer.upload,
+    //   validator.pubValidationRules(),
+    // validator.pubValidate,publicacionesController.editar
 )
 
 module.exports = router

@@ -8,35 +8,22 @@ const validator = require("./validator")
 // Se asigna el controlador correspondiente a cada ruta
 
 router.get('/',
-    // tokenAuth,
     clienteController.getAll
 )
 
-router.get('/:id',
-    // tokenAuth,
-    //publicacionesController.findById
-)
-
 router.post('/',
-    //tokenAuth,
-   // multer.upload,
-   // validator.pubValidationRules(),
-    //validator.pubValidate,
     clienteController.addClient
 )
 
 router.delete('/:id',
    // tokenAuth,
-    //publicacionesController.eliminar
+   
 )
 
 router.put(
     '/:id',
     clienteController.editClient
-  //  tokenAuth,
- //   multer.upload,
- //   validator.pubValidationRules(),
-   // validator.pubValidate,publicacionesController.editar
+
 )
 
 module.exports = router

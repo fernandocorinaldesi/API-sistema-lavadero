@@ -1,5 +1,4 @@
 const Usuario = require('../models/core/usuario')
-const jwt = require('jsonwebtoken')
 
 exports.save = async (usuario) => {
     usuario.lastLogin = Date.now()
