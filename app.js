@@ -24,6 +24,12 @@ const usuarios = require('./routes/core/usuarios')
 const ordenTrabajoRutas = require('./routes/ordenTrabajo')
 const servicioRutas = require('./routes/servicio')
 const clientes = require('./routes/clientes')
+const productoRutas = require('./routes/producto')
+const stockRutas = require('./routes/stock')
+const compraRutas = require('./routes/compra')
+const egresoRutas = require('./routes/egreso')
+const contableRutas = require('./routes/contable')
+const seguridadRutas = require('./routes/seguridad')
 
 
 
@@ -67,6 +73,13 @@ app.use('/usuarios',usuarios)
 app.use('/orden', ordenTrabajoRutas)
 app.use('/clientes', clientes)
 app.use('/servicios', servicioRutas)
+app.use('/productos', productoRutas)
+app.use('/compras', compraRutas)
+app.use('/stocks', stockRutas)
+app.use('/egresos', egresoRutas)
+app.use('/contable', contableRutas)
+app.use('/seguridad', seguridadRutas)
+
 
 
 // #####Swagger
@@ -110,7 +123,7 @@ sequelize.sync({
 .then(resultado => { console.log("\u001b[1;34m  [sequelize sync core]" + JSON.stringify(resultado.models)) })
 .catch(error => { throw new Error(error) })
 
-
+/*
 const cliente = require("./models/cliente");
 const cliente2 = require("./models/servicio");
 /*db.sync({ 
@@ -120,5 +133,14 @@ const cliente2 = require("./models/servicio");
 .then(resultado => { console.log("\u001b[1;34m  [sequelize sync core]" + JSON.stringify(resultado.models)) })
 .catch(error => { throw new Error(error) })
 */
+//const Stock = require("./models/stock");
+
+//const cliente = require("./models/compra");
+//const cliente2 = require("./models/compraProducto");
+/*const cliente = require("./models/egreso");
+const cliente2 = require("./models/egresoProducto");*/
+//const cliente2 = require("./models/servicio");
+
+
 
 module.exports = app;

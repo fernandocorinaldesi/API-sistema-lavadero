@@ -27,6 +27,16 @@ exports.VIEW_DATE_FORMAT = 'dddd, D MMMM YYYY'
  exports.convertDbDateTimeToNormaldate = (fechaHora) => {
     return moment(fechaHora, this.DB_DATE_TIME_FORMAT).format(this.NORMAL_DATE_FORMAT)
 }
+/**
+ * Función para convertir una fecha con hora en otro formato.
+ * @param {String} fechahora - fecha en formato LLLL
+ * @returns {String} - fecha en formato YYYY-MM-DD 
+ */
+ exports.convertDbDateTimeToNormaldateTime = (fechaHora) => {
+    return moment(fechaHora, this.DB_DATE_TIME_FORMAT).format(this.NORMAL_DATE_TIME_FORMAT)
+}
+
+
 exports.convertDateToMonthYear = (fecha) => {
     return moment(fecha, this.NORMAL_DATE_FORMAT).format('MMMM YYYY')
 }
